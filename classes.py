@@ -1,16 +1,25 @@
-class Planet:
-    __slots__ = ["name", "mass", "center", "vel", "acc", "prev_acc"]
+from math import sqrt
 
-    def __init__(self, name, mass, center=None, vel=None, acc=None):
+
+class Planet:
+    __slots__ = ["name", "color", "mass", "center", "vel", "acc", "prev_acc", "radius"]
+
+    def __init__(self, name, color="white", mass=1, center=None, vel=None, acc=None, ):
         self.name = name
         self.mass = mass if mass > 0 else 1
         self.center = [0, 0] if center is None else center
         self.vel = [0, 0] if vel is None else vel
         self.acc = [0, 0] if acc is None else acc
+        self.color = color
 
         self.prev_acc = [0, 0]
+        self.radius = int(sqrt(mass))
 
-    def apply_force(self, force, point=None):
+    def clr_acc(self):
+        self.acc[0] = 0
+        self.acc[1] = 0
+
+    def apply_force(self, force):
         self.acc[0] += force[0] / self.mass
         self.acc[1] += force[1] / self.mass
 
